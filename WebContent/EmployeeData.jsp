@@ -17,6 +17,7 @@
 			<td><center>Entry Date</center></td>
 			<td><center>Category</center></td>
 			<td><center>Salary</center></td>
+			<td><center>Incentive</center></td>
 			<c:forEach items = "${data}" var="data">
 			<tr>
 				<td><center><c:out value="${data.name}"/></center></td>
@@ -24,6 +25,9 @@
 				<td><center><c:out value="${data.entryDateFormatted}"/></center></td>
 				<td><center><c:out value="${data.category}"/></center></td>
 				<td><center><c:out value="${data.salary}"/></center></td>
+				<td><center>
+					<a href = 'InterRequestController?grade=${data.category}&salary=${data.salary}&name=${data.name}'>Incentive Calculator</a>
+					</center></td>
 			</c:forEach>
 		</tbody>
 	</table>

@@ -91,7 +91,7 @@ public class DataAccessObject {
 		List<EmployeeDataModel> listEmployee = new ArrayList<EmployeeDataModel>();
 		ResultSet rs = null;
 		try{
-			String selectquery = "SELECT e.idemployee, e.name, e.category, e.entrydate, s.salary FROM employee AS e LEFT JOIN salary AS s ON e.category=s.grade ORDER BY e.entrydate";
+			String selectquery = "SELECT e.idemployee, e.name, e.category, e.entrydate, s.salary FROM employee AS e LEFT JOIN salary AS s ON e.category=s.grade ORDER BY s.salary DESC";
 			Statement stmt =conn.createStatement();
 			rs = stmt.executeQuery(selectquery);
 			while (rs.next()){
@@ -151,6 +151,61 @@ public class DataAccessObject {
 				Logger.getLogger(DataAccessObject.class.getName()).log(Level.SEVERE, null, e2);
 			}
 		}return listsalary;
+	}
+	public String getGrade(int employeeid){
+		Statement st = null;
+		ResultSet rs = null;
+		String grade=null;
+		try{
+			String query= "SELECT * FROM employee WHERE idemployee='"+employeeid+"'";
+			st = conn.createStatement();
+			rs = st.executeQuery(query);
+			while(rs.next()){
+				grade = rs.getString("category");
+			}
+		}catch(SQLException se){
+			Logger.getLogger(DataAccessObject.class.getName()).log(Level.SEVERE, null, se);
+		}
+		finally{
+			if(rs!=null)try{
+				rs.close();
+			}catch (Exception e) {
+				Logger.getLogger(DataAccessObject.class.getName()).log(Level.SEVERE, null, e);
+			}
+			if(conn!=null)try{
+				conn.close();
+			}catch (Exception e) {
+				Logger.getLogger(DataAccessObject.class.getName()).log(Level.SEVERE, null, e);
+			}
+		}
+		return grade;
+	}
+	public int getSalary(int employeeid){
+		int salary = 0;
+		Statement st = null;
+		ResultSet rs = null;
+		try{
+			String query = "SELECT e.idemployee, e.name, e.category, e.entrydate, s.salary FROM employee AS e LEFT JOIN salary AS s ON e.category=s.grade WHERE idemployee='" + employeeid +"'";
+			st = conn.createStatement();
+			rs = st.executeQuery(query);
+			while (rs.next()){
+				salary = rs.getInt(5);
+			}
+		}catch(SQLException se){
+			Logger.getLogger(DataAccessObject.class.getName()).log(Level.SEVERE, null, se);
+		}
+		finally{
+			if(rs!=null)try{
+				rs.close();
+			}catch (Exception e) {
+				Logger.getLogger(DataAccessObject.class.getName()).log(Level.SEVERE, null, e);
+			}
+			if(conn!=null)try{
+				conn.close();
+			}catch (Exception e) {
+				Logger.getLogger(DataAccessObject.class.getName()).log(Level.SEVERE, null, e);
+			}
+		} return salary;
 	}
 }
 	
