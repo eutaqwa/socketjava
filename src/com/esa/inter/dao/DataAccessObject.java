@@ -55,7 +55,7 @@ public class DataAccessObject {
 		boolean insert = false;
 		EmployeeDataModel employee = new EmployeeDataModel();
 		employee.setEntryDate(new Date());
-		SimpleDateFormat date = new SimpleDateFormat("EEEE, dd/MM/yyyy, HH:mm:ss");
+		SimpleDateFormat date = new SimpleDateFormat("EEEE dd/MM/yyyy HH:mm:ss");
 		String dateformatted = date.format(employee.getEntryDate());
 		employee.setEntryDateFormatted(dateformatted);
 		PreparedStatement ps = null;
